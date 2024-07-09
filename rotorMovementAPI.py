@@ -44,13 +44,20 @@ def handle_connection_status():
     emit('connection_status', {'status': 'connected'})
 
 def send_status():
+    prevAzimuth = None
+    prevElevation = None
     while not status_stop_event.is_set():
         estado_actual = rot.status()
         azimuth = estado_actual[0]
         elevation = estado_actual[1]
-        print(azimuth, elevation)
-        socketio.emit('estado_actual', {'azimuth': azimuth, 'elevation': elevation})
-        time.sleep(1)
+        if azimuth != prevAzimuth and elevation != prevElevation:
+            print(azimuth, elevation)
+            prevAzimuth = azimuth
+            prevElevation = elevation
+            socketio.emit('estado_actual', {'azimuth': azimuth, 'elevation': elevation})
+            time.sleep(1)
+        else:
+            time.sleep(1)
 
 @socketio.on('get_status')
 def handle_get_status():
