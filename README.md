@@ -10,11 +10,14 @@ Las bibliotecas utilizadas se encuentran en requirements.txt:
 ```
 
 El codigo rot2ProgInteractor.py es una versión modificada del codigo de [rot2Prog](https://github.com/timothyscherer/rot2prog.git) del usuario
-[timothyscherer](https://github.com/timothyscherer) 
+[timothyscherer](https://github.com/timothyscherer).
+
+Repositorio pypi: [rot2Prog](https://pypi.org/project/rot2prog/)
 
 The code of rot2ProgInteractor.py is modified versión of the code of [rot2Prog](https://github.com/timothyscherer/rot2prog.git) from the user
-[timothyscherer](https://github.com/timothyscherer) 
+[timothyscherer](https://github.com/timothyscherer).
 
+pypi repository: [rot2Prog](https://pypi.org/project/rot2prog/)
 
 Para ejecutar el codigo se prefiere ejecutar satellitePredictionAPI.py y rotorMovementAPI.py de forma separada, ya que utilizan puertos diferentes:
 
