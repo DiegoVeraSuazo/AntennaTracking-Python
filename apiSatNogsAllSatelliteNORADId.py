@@ -6,6 +6,22 @@ import pytz
 import ephem
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
+with open('config.json') as config_file:
+    config = json.load(config_file)
+
+api_key = config.get('api_key')
+longitude = config.get('long')
+latitude = config.get('lat')
+elevation = config.get('elev')
+
+if api_key is None:
+    raise ValueError("No API key found in config file.")
+# else:
+#     print(f"API Key: {api_key}")
+#     print(f"Longitude: {longitude}")
+#     print(f"Latitude: {latitude}")
+#     print(f"Elevation: {elevation}")
+
 def computoSatelite(tle_data):
     """Computes the time of rising and setting of the Satellite.
 
@@ -40,10 +56,9 @@ def computoSatelite(tle_data):
 
     satellite = ephem.readtle(nombre_satellite, tle1, tle2)
     obs = ephem.Observer()
-    obs.lat = '-38.7487032'
-    obs.long = '-72.6174925'
-    obs.elev = 107
-        
+    obs.lat = latitude
+    obs.long = longitude
+    obs.elev = elevation
     try:
         tr, azr, tt, altt, ts, azs = obs.next_pass(satellite)
         
@@ -69,7 +84,6 @@ def getTLESatelite():
     Returns:
     The TLE data of all the available satellites in the database of SatNogs.
     """
-    api_key = '7ccf8dd1b0060eaf8f11a63e6505fdf2ab431494'
     url = 'https://db.satnogs.org/api/tle/?norad_cat_id=&tle_source=&sat_id='
     headers = {'Authorization': f'Token {api_key}','Content-Type': 'application/json',}
     response = requests.get(url, headers)
@@ -89,7 +103,6 @@ def getTransmitterSatellite():
     Returns:
     The transmitter data of all the available satellites in the database of SatNogs.
     """
-    api_key = '7ccf8dd1b0060eaf8f11a63e6505fdf2ab431494'
     url = f'https://db.satnogs.org/api/transmitters/?uuid=&mode=&uplink_mode=&type=&satellite__norad_cat_id=&alive=&status=&service=&sat_id='
     headers = {'Authorization': f'Token {api_key}','Content-Type': 'application/json',}
     response = requests.get(url, headers)
@@ -110,7 +123,6 @@ def getSatellitesData():
     Returns:
     The data of all the available satellites in the database of SatNogs.
     """
-    api_key = '7ccf8dd1b0060eaf8f11a63e6505fdf2ab431494'
     url = 'https://db.satnogs.org/api/satellites/?norad_cat_id=&status=alive&in_orbit=true&sat_id='
     headers = {'Authorization': f'Token {api_key}','Content-Type': 'application/json',}
     response = requests.get(url, headers)
@@ -152,6 +164,7 @@ def getSatellitesData():
             json.dump(satellite_data, file, ensure_ascii=False, indent=4)
         print(f'Se han guardado los satelites disponibles en SatNogs en la direccion:')
         print(f'{newDir}')
+
         return satellite_data
     else:
         print(f'Error en la solicitud: {response.status_code}')

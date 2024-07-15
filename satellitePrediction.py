@@ -1,8 +1,25 @@
+import json
 import requests
 import math
 import ephem
 from datetime import datetime, timedelta
 import pytz
+
+with open('config.json') as config_file:
+    config = json.load(config_file)
+
+api_key = config.get('api_key')
+longitude = config.get('long')
+latitude = config.get('lat')
+elevation = config.get('elev')
+
+if api_key is None:
+    raise ValueError("No API key found in config file.")
+# else:
+#     print(f"API Key: {api_key}")
+#     print(f"Longitude: {longitude}")
+#     print(f"Latitude: {latitude}")
+#     print(f"Elevation: {elevation}")
 
 def prediccionPasadaSatelite(norad_cat_id, numero_de_pasadas = 1, computeCycle = 2):
     """Computes the route and position of the choseen satellite, and the direction in azimuth and elevation 
@@ -26,9 +43,7 @@ def prediccionPasadaSatelite(norad_cat_id, numero_de_pasadas = 1, computeCycle =
                                             },
     """
 
-    # URL Y API
-    api_key = '7ccf8dd1b0060eaf8f11a63e6505fdf2ab431494'
-
+    # URL
     url = f'https://db.satnogs.org/api/tle/?norad_cat_id={norad_cat_id}&tle_source=&sat_id='
 
     headers = {'Authorization': f'Token {api_key}','Content-Type': 'application/json',}
@@ -83,9 +98,9 @@ def prediccionPasadaSatelite(norad_cat_id, numero_de_pasadas = 1, computeCycle =
         satellite = ephem.readtle(nombre_satellite, tle1, tle2)
 
         obs = ephem.Observer()
-        obs.lat = '-38.7487032'
-        obs.long = '-72.6174925'
-        obs.elev = 107
+        obs.lat = latitude
+        obs.long = longitude
+        obs.elev = elevation
 
         tempPredictionPasada = []
         predictionData = []
@@ -184,9 +199,7 @@ def prediccionRutaSatelite(norad_cat_id):
                                             },
     """
 
-    # URL Y API
-    api_key = '7ccf8dd1b0060eaf8f11a63e6505fdf2ab431494'
-
+    # URL
     url = f'https://db.satnogs.org/api/tle/?norad_cat_id={norad_cat_id}&tle_source=&sat_id='
 
     headers = {'Authorization': f'Token {api_key}','Content-Type': 'application/json',}
@@ -258,9 +271,9 @@ def prediccionRutaSatelite(norad_cat_id):
         current_time = start_time
 
         obs = ephem.Observer()
-        obs.lat = '-38.7487032'
-        obs.long = '-72.6174925'
-        obs.elev = 107
+        obs.lat = latitude
+        obs.long = longitude
+        obs.elev = elevation
 
         tempPred = []
         predictionData = []
@@ -325,9 +338,9 @@ def predictionCelestialBody(CelestialBodyOption):
     """
     # Configuración de la ubicación
     observador = ephem.Observer()
-    observador.lat = '-38.7487032'
-    observador.long = '-72.6174925'
-    observador.elev = 107
+    observador.lat = latitude
+    observador.long = longitude
+    observador.elev = elevation
 
     # Lista de cuerpos celestes disponibles
     cuerpos_celestes = {
