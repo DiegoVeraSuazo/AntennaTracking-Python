@@ -7,6 +7,11 @@ import ephem
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 def computoSatelite(tle_data):
+    """Computes the time of rising and setting of the Satellite.
+
+    Returns:
+    The time of rising and setting of the satellite and the last updated time of the TLE data.
+    """
     tle_data_parsed = [{'tle0': item['tle0'], 'tle1': item['tle1'], 'tle2': item['tle2'], 'Updated': item['updated']} for item in tle_data]
     
     if not tle_data_parsed:
@@ -59,6 +64,11 @@ def computoSatelite(tle_data):
         return Tiempo_Inicio, Tiempo_Fin, fechaUltimoActualizado
 
 def getTLESatelite():
+    """Gets the TLE data from the SatNogs Database using their API
+
+    Returns:
+    The TLE data of all the available satellites in the database of SatNogs.
+    """
     api_key = '7ccf8dd1b0060eaf8f11a63e6505fdf2ab431494'
     url = 'https://db.satnogs.org/api/tle/?norad_cat_id=&tle_source=&sat_id='
     headers = {'Authorization': f'Token {api_key}','Content-Type': 'application/json',}
@@ -74,6 +84,11 @@ def getTLESatelite():
         return None
 
 def getTransmitterSatellite():
+    """Gets the transmitter data from the SatNogs Database using their API
+
+    Returns:
+    The transmitter data of all the available satellites in the database of SatNogs.
+    """
     api_key = '7ccf8dd1b0060eaf8f11a63e6505fdf2ab431494'
     url = f'https://db.satnogs.org/api/transmitters/?uuid=&mode=&uplink_mode=&type=&satellite__norad_cat_id=&alive=&status=&service=&sat_id='
     headers = {'Authorization': f'Token {api_key}','Content-Type': 'application/json',}
@@ -89,6 +104,12 @@ def getTransmitterSatellite():
         return None
 
 def getSatellitesData():
+    """Gets a list of all satellite that are alive from the SatNogs Database using their API, 
+    and transforms the data to add aditional data.
+
+    Returns:
+    The data of all the available satellites in the database of SatNogs.
+    """
     api_key = '7ccf8dd1b0060eaf8f11a63e6505fdf2ab431494'
     url = 'https://db.satnogs.org/api/satellites/?norad_cat_id=&status=alive&in_orbit=true&sat_id='
     headers = {'Authorization': f'Token {api_key}','Content-Type': 'application/json',}

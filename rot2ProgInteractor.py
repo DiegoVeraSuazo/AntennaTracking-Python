@@ -225,8 +225,14 @@ class ROT2Prog:
 		    az (float), el (float): Tuple of current azimuth and elevation.
 		"""
 		self._log.debug('Move left command queued')
-
-		cmd = [0x57, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x14, 0x20]
+		
+		# encode with resolution
+		with self._pulses_per_degree_lock:
+			resolution = self._pulses_per_degree
+		cmd = [0x57, 
+		 0x01, 0x00, 0x00, 0x00, resolution, 
+		 0x00, 0x00, 0x00, 0x00, resolution, 
+		 0x14, 0x20]
 		self._send_command(cmd)
 		return self._recv_response()
 	
@@ -237,8 +243,14 @@ class ROT2Prog:
 		    az (float), el (float): Tuple of current azimuth and elevation.
 		"""
 		self._log.debug('Move right command queued')
-
-		cmd = [0x57, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x14, 0x20]
+		
+		# encode with resolution
+		with self._pulses_per_degree_lock:
+			resolution = self._pulses_per_degree
+		cmd = [0x57, 
+		 0x02, 0x00, 0x00, 0x00, resolution, 
+		 0x00, 0x00, 0x00, 0x00, resolution, 
+		 0x14, 0x20]
 		self._send_command(cmd)
 		return self._recv_response()
 	
@@ -250,7 +262,13 @@ class ROT2Prog:
 		"""
 		self._log.debug('Move up command queued')
 
-		cmd = [0x57, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x14, 0x20]
+		# encode with resolution
+		with self._pulses_per_degree_lock:
+			resolution = self._pulses_per_degree
+		cmd = [0x57, 
+		 0x04, 0x00, 0x00, 0x00, resolution, 
+		 0x00, 0x00, 0x00, 0x00, resolution, 
+		 0x14, 0x20]
 		self._send_command(cmd)
 		return self._recv_response()
 	
@@ -262,7 +280,13 @@ class ROT2Prog:
 		"""
 		self._log.debug('Move down command queued')
 
-		cmd = [0x57, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x14, 0x20]
+		# encode with resolution
+		with self._pulses_per_degree_lock:
+			resolution = self._pulses_per_degree
+		cmd = [0x57, 
+		 0x08, 0x00, 0x00, 0x00, resolution, 
+		 0x00, 0x00, 0x00, 0x00, resolution, 
+		 0x14, 0x20]
 		self._send_command(cmd)
 		return self._recv_response()
 	
@@ -274,7 +298,13 @@ class ROT2Prog:
 		"""
 		self._log.debug('Move left+up command queued')
 
-		cmd = [0x57, 0x05, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x14, 0x20]
+		# encode with resolution
+		with self._pulses_per_degree_lock:
+			resolution = self._pulses_per_degree
+		cmd = [0x57, 
+		 0x05, 0x00, 0x00, 0x00, resolution, 
+		 0x00, 0x00, 0x00, 0x00, resolution, 
+		 0x14, 0x20]
 		self._send_command(cmd)
 		return self._recv_response()
 
@@ -286,7 +316,13 @@ class ROT2Prog:
 		"""
 		self._log.debug('Move right+up command queued')
 
-		cmd = [0x57, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x14, 0x20]
+		# encode with resolution
+		with self._pulses_per_degree_lock:
+			resolution = self._pulses_per_degree
+		cmd = [0x57, 
+		 0x06, 0x00, 0x00, 0x00, resolution, 
+		 0x00, 0x00, 0x00, 0x00, resolution, 
+		 0x14, 0x20]
 		self._send_command(cmd)
 		return self._recv_response()
 	
@@ -298,7 +334,13 @@ class ROT2Prog:
 		"""
 		self._log.debug('Move left+down command queued')
 
-		cmd = [0x57, 0x0A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x14, 0x20]
+		# encode with resolution
+		with self._pulses_per_degree_lock:
+			resolution = self._pulses_per_degree
+		cmd = [0x57, 
+		 0x0A, 0x00, 0x00, 0x00, resolution, 
+		 0x00, 0x00, 0x00, 0x00, resolution, 
+		 0x14, 0x20]
 		self._send_command(cmd)
 		return self._recv_response()
 
@@ -310,7 +352,13 @@ class ROT2Prog:
 		"""
 		self._log.debug('Move right+down command queued')
 
-		cmd = [0x57, 0x09, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x14, 0x20]
+		# encode with resolution
+		with self._pulses_per_degree_lock:
+			resolution = self._pulses_per_degree
+		cmd = [0x57, 
+		 0x09, 0x00, 0x00, 0x00, resolution, 
+		 0x00, 0x00, 0x00, 0x00, resolution, 
+		 0x14, 0x20]
 		self._send_command(cmd)
 		return self._recv_response()
 
@@ -322,7 +370,13 @@ class ROT2Prog:
 		"""
 		self._log.debug('Stop movement command queued')
 
-		cmd = [0x57, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x14, 0x20]
+		# encode with resolution
+		with self._pulses_per_degree_lock:
+			resolution = self._pulses_per_degree
+		cmd = [0x57, 
+		 0x00, 0x00, 0x00, 0x00, resolution, 
+		 0x00, 0x00, 0x00, 0x00, resolution, 
+		 0x14, 0x20]
 		self._send_command(cmd)
 		return self._recv_response()
 	
@@ -341,9 +395,12 @@ class ROT2Prog:
 		powerMotor1 = hexStrPowMot1.zfill(2)
 		powerMotor2 = hexStrPowMot2.zfill(2)
 
-		cmd = [0x57, 0x00, 0x00, 0x00, 0x00, int(powerMotor1) + 0x00, 0x00, 0x00, 0x00, 0x00, int(powerMotor2) + 0x00, 0xF7, 0x20]
+		cmd = [0x57, 
+		 0x00, 0x00, 0x00, 0x00, int(powerMotor1) + 0x00, 
+		 0x00, 0x00, 0x00, 0x00, int(powerMotor2) + 0x00, 
+		 0xF7, 0x20]
 		self._send_command(cmd)
-		return self._recv_response()
+		return f"{cmd} Packet received, Setting Power to: Motor 1: {powerMotor1}, Motor 2: {powerMotor2}"
 	
 	def clean_all_settings(self):
 		"""Sends a command that clean all settings.
@@ -353,6 +410,9 @@ class ROT2Prog:
 		"""
 		self._log.debug('Status command queued')
 
-		cmd = [0x57, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xF8, 0x20]
+		cmd = [0x57, 
+		 0x00, 0x00, 0x00, 0x00, 0x00, 
+		 0x00, 0x00, 0x00, 0x00, 0x00, 
+		 0xF8, 0x20]
 		self._send_command(cmd)
-		return self._recv_response()
+		return f"{cmd} Packet received: All settings cleaned"

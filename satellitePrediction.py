@@ -317,6 +317,11 @@ def predictionCelestialBody(CelestialBodyOption):
     
     Returns:
     JSON object with the following data:
+        "Cuerpo Celeste": El nombre del cuerpo celeste a predecir,
+        "Pasadas_predecidas": [{
+            "Tiempo_Cordenada": "Tiempo de la cordenada en una instancia de tiempo",
+            "az": Posicicón Azimuth que debe estar la antena en una instancia de tiempo,
+            "el": Posicicón Elevación que debe estar la antena en una instancia de tiempo,
     """
     # Configuración de la ubicación
     observador = ephem.Observer()

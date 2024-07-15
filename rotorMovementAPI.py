@@ -19,6 +19,8 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 
 rotConnectionStatus = False
 
+
+# Loop que revisa la conexión a través del Serial.
 while rotConnectionStatus is False: 
     try:
         rot = rot2ProgInteractor.ROT2Prog('/dev/ttyUSB0', baudrate=9600,timeout=10)
@@ -32,7 +34,7 @@ while rotConnectionStatus is False:
 stop_event = threading.Event()
 status_stop_event = threading.Event()
 
-# Manejar conexión de clientes
+# Manejo conexión de clientes
 @socketio.on('connect')
 def handle_connection_status():
     """API call that handles an async connection as an example
@@ -44,6 +46,11 @@ def handle_connection_status():
     emit('connection_status', {'status': 'connected'})
 
 def send_status():
+    """Method that obtains the status of the rotor and sends it to the client every time there is a change.
+
+    Returns:
+    Status of the rotor - The position.
+    """
     prevAzimuth = None
     prevElevation = None
     while not status_stop_event.is_set():
@@ -244,6 +251,14 @@ def getCleanAllSettings():
     return jsonify({'status': 'Cleaning all settings'})
 
 def track_prediction_task(prediction_data):
+    """
+    Method that moves the Antena to the position given in the prediction.
+    
+    Parameters(Given via request.get_json): 
+    jsonFile: JSON file with the prediction. 
+    Returns:
+    None: Moves the Antena to the position given the time.
+    """
     print('Empezando Tracking')
     rot.set(prediction_data[0]['az'], prediction_data[0]['el'])
     while prediction_data:
@@ -290,6 +305,14 @@ def trackPrediction():
     return jsonify({'status': 'Tracking started'})
 
 def track_celestial_object_task(prediction_cel_obj_data):
+    """
+    Method that moves the Antena to the position given in the prediction.
+    
+    Parameters(Given via request.get_json): 
+    jsonFile: JSON file with the prediction. 
+    Returns:
+    None: Moves the Antena to the position given the time.
+    """
     print('Empezando Tracking')
     print(prediction_cel_obj_data)
     while prediction_cel_obj_data:

@@ -103,6 +103,6 @@ def handle_connection_status():
     emit('Estado Conexion', 'conectado')
 
 if __name__ == '__main__':
-    # Production
+    # "Production"
     http_server = WSGIServer(('192.168.1.18', 5018), app)
     http_server.serve_forever()
