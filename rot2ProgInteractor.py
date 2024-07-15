@@ -191,6 +191,7 @@ class ROT2Prog:
 		Returns:
 		    min_az (float), max_az (float), min_el (float), max_el (float): Tuple of minimum and maximum azimuth and elevation.
 		"""
+		self._log.debug('Get Limits Command queued')
 		with self._limits_lock:
 			return (self._min_az, self._max_az, self._min_el, self._max_el)
 
@@ -203,6 +204,7 @@ class ROT2Prog:
 		    min_el (int, optional): Minimum elevation. Defaults to -21.
 		    max_el (int, optional): Maximum elevation. Defaults to 180.
 		"""
+		self._log.debug('Set Limits Command queued')
 		with self._limits_lock:
 			self._min_az = min_az
 			self._max_az = max_az
@@ -215,6 +217,7 @@ class ROT2Prog:
 		Returns:
 		    int: Pulses per degree defining the resolution of the controller.
 		"""
+		self._log.debug('Get Pulses per Degree Command queued')
 		with self._pulses_per_degree_lock:
 			return self._pulses_per_degree
 		    
@@ -226,7 +229,7 @@ class ROT2Prog:
 		"""
 		self._log.debug('Move left command queued')
 		
-		# encode with resolution
+		# encode with resolution, it doesn't matter but self._recv_response() needs it to process.
 		with self._pulses_per_degree_lock:
 			resolution = self._pulses_per_degree
 		cmd = [0x57, 
@@ -244,7 +247,7 @@ class ROT2Prog:
 		"""
 		self._log.debug('Move right command queued')
 		
-		# encode with resolution
+		# encode with resolution, it doesn't matter but self._recv_response() needs it to process.
 		with self._pulses_per_degree_lock:
 			resolution = self._pulses_per_degree
 		cmd = [0x57, 
@@ -262,7 +265,7 @@ class ROT2Prog:
 		"""
 		self._log.debug('Move up command queued')
 
-		# encode with resolution
+		# encode with resolution, it doesn't matter but self._recv_response() needs it to process.
 		with self._pulses_per_degree_lock:
 			resolution = self._pulses_per_degree
 		cmd = [0x57, 
@@ -280,7 +283,7 @@ class ROT2Prog:
 		"""
 		self._log.debug('Move down command queued')
 
-		# encode with resolution
+		# encode with resolution, it doesn't matter but self._recv_response() needs it to process.
 		with self._pulses_per_degree_lock:
 			resolution = self._pulses_per_degree
 		cmd = [0x57, 
@@ -298,7 +301,7 @@ class ROT2Prog:
 		"""
 		self._log.debug('Move left+up command queued')
 
-		# encode with resolution
+		# encode with resolution, it doesn't matter but self._recv_response() needs it to process.
 		with self._pulses_per_degree_lock:
 			resolution = self._pulses_per_degree
 		cmd = [0x57, 
@@ -316,7 +319,7 @@ class ROT2Prog:
 		"""
 		self._log.debug('Move right+up command queued')
 
-		# encode with resolution
+		# encode with resolution, it doesn't matter but self._recv_response() needs it to process.
 		with self._pulses_per_degree_lock:
 			resolution = self._pulses_per_degree
 		cmd = [0x57, 
@@ -334,7 +337,7 @@ class ROT2Prog:
 		"""
 		self._log.debug('Move left+down command queued')
 
-		# encode with resolution
+		# encode with resolution, it doesn't matter but self._recv_response() needs it to process.
 		with self._pulses_per_degree_lock:
 			resolution = self._pulses_per_degree
 		cmd = [0x57, 
@@ -352,7 +355,7 @@ class ROT2Prog:
 		"""
 		self._log.debug('Move right+down command queued')
 
-		# encode with resolution
+		# encode with resolution, it doesn't matter but self._recv_response() needs it to process.
 		with self._pulses_per_degree_lock:
 			resolution = self._pulses_per_degree
 		cmd = [0x57, 
@@ -370,7 +373,7 @@ class ROT2Prog:
 		"""
 		self._log.debug('Stop movement command queued')
 
-		# encode with resolution
+		# encode with resolution, it doesn't matter but self._recv_response() needs it to process.
 		with self._pulses_per_degree_lock:
 			resolution = self._pulses_per_degree
 		cmd = [0x57, 
@@ -386,7 +389,7 @@ class ROT2Prog:
 		Returns:
 			
 		"""
-		self._log.debug('Move right+down command queued')
+		self._log.debug('Set Power command queued')
 		
 		limitPowerMotor1 = max(0, min(100, power_motor_1))
 		limitPowerMotor2 = max(0, min(100, power_motor_2))
@@ -394,6 +397,8 @@ class ROT2Prog:
 		hexStrPowMot2 = hex(limitPowerMotor2)[2:]
 		powerMotor1 = hexStrPowMot1.zfill(2)
 		powerMotor2 = hexStrPowMot2.zfill(2)
+
+		self._log.debug(f'Motor 1: {power_motor_1}, Power 2: {power_motor_2}')
 
 		cmd = [0x57, 
 		 0x00, 0x00, 0x00, 0x00, int(powerMotor1) + 0x00, 
@@ -408,7 +413,7 @@ class ROT2Prog:
 		Returns:
 		    az (float), el (float): Tuple of current azimuth and elevation.
 		"""
-		self._log.debug('Status command queued')
+		self._log.debug('Clean all settings command queued')
 
 		cmd = [0x57, 
 		 0x00, 0x00, 0x00, 0x00, 0x00, 
