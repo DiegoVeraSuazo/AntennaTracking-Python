@@ -1,5 +1,5 @@
 # AntennaTracking-Python
-Repositorio del Backend realizado en Python para realizar el control de la Antena, perteneciente al CEMCC, además de recoger los datos de SatNogs y hacer predicciones con estas. 
+Repositorio del Backend realizado en Python para realizar el control de una Antena con rotores SPID BIG-RAS/HR y un controlador Alfa ROT2Prog Controller MD-01, perteneciente al CEMCC, además de recoger los datos de SatNogs y hacer predicciones con estas. 
 
 Proyecto relacionado con el proyecto AntennaTracking-React: [AntennaTracking-React](https://github.com/DiegoVeraSuazo/AntennaTracking-React)
 
