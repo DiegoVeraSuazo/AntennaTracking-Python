@@ -9,11 +9,18 @@ Las bibliotecas utilizadas se encuentran en requirements.txt:
     pip install -r requirements.txt
 ```
 
-Para ejecutar este codigo hay que utilizar satellitePredictionAPI.py y rotorMovementAPI.py de forma separada
+El codigo rot2ProgInteractor.py es una versión modificada del codigo de [rot2Prog](https://github.com/timothyscherer/rot2prog.git) del usuario
+[timothyscherer](https://github.com/timothyscherer) 
+
+The code of rot2ProgInteractor.py is modified versión of the code of [rot2Prog](https://github.com/timothyscherer/rot2prog.git) from the user
+[timothyscherer](https://github.com/timothyscherer) 
+
+
+Para ejecutar el codigo se prefiere ejecutar satellitePredictionAPI.py y rotorMovementAPI.py de forma separada, ya que utilizan puertos diferentes:
 
 ```
     py satellitePredictionAPI.py
-    py satellitePredictionAPI.py
+    py rotorMovementAPI.py
 ```
 
 El codigo que ejecuta la API está dirigida a una IP estatica que se configura para comunicarse con el codigo de AntennaTracking-React.

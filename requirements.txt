@@ -7,3 +7,4 @@ pyserial==3.5
 pytz==2024.1
 requests==2.31.0
 gevent-websocket==0.10.1
+rot2prog==0.0.9
